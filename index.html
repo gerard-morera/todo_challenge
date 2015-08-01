@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="toDo">
+  <head>
+    <meta charset="utf-8">
+    <title>ToDo list</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/toDoController.js"></script>
+  </head>
+  <body ng-controller="toDoController as toDoCtrl">
+    <h2>What needs to be done?</h2>
+      <div class="">
+        <form class="form-todo" ng-submit()="toDoCtrl.insertToDo()">
+          <input type="text" value="What needs to be done" ng-model="toDoCtrl.newToDo" ></input>
+        </form>
+        <ul class="list-todos" ng-repeat="toDo in toDoCtrl.toDos">
+          <input type="checkbox">
+          <li class="list-todo-item"> {{toDo}}</li>
+          <button class="delete-todo">X</button>
+        </ul>
+        <p>n items left</p>
+        <form>
+          <button>All</button>
+          <button>Active</button>
+          <button>Complete</button>
+          <button>Clear All</button>
+        </form>
+      </div>
+  </body>
+</html>
