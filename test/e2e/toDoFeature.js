@@ -1,8 +1,9 @@
 describe('toDo list', function() {
 
-  var toDoInput = element(by.model('toDoCtrl.newToDo'));
-  var allToDos  = element.all(by.repeater('toDo in toDoCtrl.toDos'));
-
+  var toDoInsert   = element(by.model('toDoCtrl.newToDo'));
+  var toDoDisplay  = element(by.className('list-todo-item'))
+  var toDos        = element.all(by.repeater('toDo in toDoCtrl.toDos'));
+ 
   beforeEach(function() {
     browser.get('http://localhost:8080')
   })
@@ -12,8 +13,8 @@ describe('toDo list', function() {
   });
 
   it('can add a new toDo', function() {
-    toDoInput.sendKeys('firstToDo')
+    toDoInsert.sendKeys('firstToDo').sendKeys(protractor.Key.ENTER);
 
-    expect(allToDos.getText()).toEqual('firstToDo')
+    expect(toDos.first().getText()).toEqual('firstToDo')
   })
 })

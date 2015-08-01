@@ -7,4 +7,3 @@ toDo.controller('toDoController', [function() {
     console.log(self.toDos)
   };
 }]);
-
