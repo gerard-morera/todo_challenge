@@ -1,5 +1,5 @@
 describe('toDoController', function() {
-  beforeEach(module('toDo'));
+  beforeEach(module('toDoModule'));
 
   var controller;
 
@@ -8,6 +8,6 @@ describe('toDoController', function() {
   }));
 
   it('initialize with empty toDo list', function() {
-    expect(controller.toDos).toBeUndefined();
+    expect(controller.toDos).toBe([]);
   });
 })

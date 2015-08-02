@@ -1,9 +1,12 @@
 describe('toDo list', function() {
 
-  var toDoInsert   = element(by.model('toDoCtrl.newToDo'));
-  var toDoDisplay  = element(by.className('list-todo-item'))
-  var toDos        = element.all(by.repeater('toDo in toDoCtrl.toDos'));
- 
+  var toDoInsert      = element(by.model('toDoCtrl.newMessage'));
+  var toDoDelete      = element(by.className('delete-todo'));
+  var toDoDisplay     = element.all(by.repeater('toDo in toDoCtrl.displayable'));
+  var toDoStateButton = element(by.className('state'));
+
+  var completeFilterButton = element(by.className('complet-filter'));
+  
   beforeEach(function() {
     browser.get('http://localhost:8080')
   })
@@ -15,6 +18,28 @@ describe('toDo list', function() {
   it('can add a new toDo', function() {
     toDoInsert.sendKeys('firstToDo').sendKeys(protractor.Key.ENTER);
 
-    expect(toDos.first().getText()).toEqual('firstToDo')
+    expect(toDoDisplay.first().getText()).toEqual('firstToDo')
+  });
+
+  it('can delete a toDo', function() {
+    toDoInsert.sendKeys('firstToDo').sendKeys(protractor.Key.ENTER);
+    toDoDelete.click();
+
+    expect(toDoDisplay.getText()).toNotEqual('firstToDo');
   })
+
+  it('can be click as done', function() {
+    toDoInsert.sendKeys('firstToDo').sendKeys(protractor.Key.ENTER);
+    action = toDoStateButton.isSelected();
+
+    expect(action).toBeTruthy();
+  })
+
+  it('filters by complete', function() {
+    toDoInsert.sendKeys('firstToDo').sendKeys(protractor.Key.ENTER);
+    
+    completeFilterButton.click();
+    expect(toDoDisplay.getText().count()).toEqual(0);
+  })
+
 })

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="toDo">
+<html lang="en" ng-app="toDoModule">
   <head>
     <meta charset="utf-8">
     <title>ToDo list</title>
@@ -15,22 +15,22 @@
       <div class="">
         
         <form class="form-todo" ng-submit="toDoCtrl.insertToDo()">
-          <input type="text" value="What needs to be done" ng-model="toDoCtrl.newToDo">
+          <input type="text" value="What needs to be done" ng-model="toDoCtrl.newMessage">
           </input>
         </form>
 
-        <ul class="list-todos" ng-repeat="toDo in toDoCtrl.toDos">
-          <input type="checkbox">
-          <li class="list-todo-item"> {{toDo}}</li>
-          <button class="delete-todo"></button>
+        <ul class="list-todos" ng-repeat="toDo in toDoCtrl.displayable">
+          <input type="checkbox" class="state" ng-click="toDoCtrl.changeState(toDo)">
+          <li class="list-todo-item"> {{toDo.message()}}</li>
+          <button class="delete-todo" ng-click="toDoCtrl.deleteToDo(toDo)"></button>
         </ul>
 
         <p>n items left</p>
         <form>
-          <button>All</button>
-          <button>Active</button>
-          <button>Complete</button>
-          <button>Clear All</button>
+          <button ng-click="toDoCtrl.allFilter()" class="all-filter">All</button>
+          <button ng-click="toDoCtrl.activeFilter()">Active</button>
+          <button ng-click="toDoCtrl.completeFilter()" class="complet-filter">Complete</button>
+          <button ng-click="toDoCtrl.clearAllFilter()"">Clear All</button>
         </form>
       </div>
   </body>
