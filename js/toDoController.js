@@ -5,11 +5,13 @@ toDoModule.controller('toDoController', [function() {
   self.toDos = [];
 
   self.insertToDo = function() {
-    var toDo = new ToDo()
-    toDo.message(self.newMessage)
+    var toDo = new ToDo();
+    toDo.message(self.newMessage);
     
-    self.toDos.push(toDo)
-    self.displayable = self.toDos.slice()
+    self.toDos.push(toDo);
+    self.displayable = self.toDos.slice();
+    self.countItemsLeft();
+    self.newMessage = ''
   };
 
   self.deleteToDo = function(aToDo) {
@@ -17,6 +19,7 @@ toDoModule.controller('toDoController', [function() {
     self.toDos.splice(index, 1)
 
     self.displayable = self.toDos.slice()
+    self.countItemsLeft();
   };
 
   self.changeState = function(aToDo) {
@@ -25,6 +28,7 @@ toDoModule.controller('toDoController', [function() {
     }else{
       aToDo.state(true)
     }
+    self.countItemsLeft();
   };
 
   function ToDo() { 
@@ -52,11 +56,13 @@ toDoModule.controller('toDoController', [function() {
         self.displayable.push(self.toDos[i]);
       };
     }
+    self.countItemsLeft();
     return self.displayable;
   };
 
   self.allFilter = function () {
     self.displayable = self.toDos.slice()
+    self.countItemsLeft();
   };
 
   self.activeFilter = function () {
@@ -66,10 +72,22 @@ toDoModule.controller('toDoController', [function() {
         self.displayable.push(self.toDos[i]);
       };
     }
+    self.countItemsLeft();
     return self.displayable;
   };
 
   self.clearAllFilter = function () {
-    self.displayable.length = 0
+    self.displayable.length = 0;
+    self.countItemsLeft();
+  }
+
+  self.countItemsLeft = function () {
+    self.itemsLeft = 0
+    for (var i = 0; i < self.displayable.length; i++){
+      if(self.displayable[i].state() === false){
+        self.itemsLeft += 1
+      };
+    };
+    return self.itemsLeft;
   }
 }]);

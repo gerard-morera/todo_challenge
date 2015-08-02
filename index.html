@@ -20,17 +20,17 @@
         </form>
 
         <ul class="list-todos" ng-repeat="toDo in toDoCtrl.displayable">
-          <input type="checkbox" class="state" ng-click="toDoCtrl.changeState(toDo)">
+          <input type="checkbox" class="state" ng-click="toDoCtrl.changeState(toDo)" ng-true-value"true" ng-checked="toDo.state() == true">
           <li class="list-todo-item"> {{toDo.message()}}</li>
-          <button class="delete-todo" ng-click="toDoCtrl.deleteToDo(toDo)"></button>
+          <button class="delete-todo" ng-click="toDoCtrl.deleteToDo(toDo)">X</button>
         </ul>
 
-        <p>n items left</p>
+        <p ng-model="toDoCtrl.countItemsLeft">{{toDoCtrl.itemsLeft}}items left</p>
         <form>
           <button ng-click="toDoCtrl.allFilter()" class="all-filter">All</button>
           <button ng-click="toDoCtrl.activeFilter()">Active</button>
           <button ng-click="toDoCtrl.completeFilter()" class="complet-filter">Complete</button>
-          <button ng-click="toDoCtrl.clearAllFilter()"">Clear All</button>
+          <button ng-click="toDoCtrl.clearAllFilter()">Clear All</button>
         </form>
       </div>
   </body>
